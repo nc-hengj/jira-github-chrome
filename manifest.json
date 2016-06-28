@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "Pivotal Github Chrome Extension",
+  "description": "This extension enhances interaction between Github and Pivotal Tracker on Chrome",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
+  "permissions": [
+   "activeTab",
+   "https://www.github.com/BLC/*",
+   "https://github.com/BLC/*",
+   "https://github.com/joshuaheng/pivotal-github-chrome/*"
+  ]
+}

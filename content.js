@@ -13,7 +13,7 @@ if (pullRequestTitleElement) {
     idsToBeReplaced += id;
 
     var rawTrackerId = id.match(/\d+/g);
-    links += '<a href="https://www.pivotaltracker.com/n/projects/1227506/stories/' +
+    links += '<a href="https://www.pivotaltracker.com/story/show' +
     rawTrackerId +
     '" target="_blank">[#' +
     rawTrackerId +

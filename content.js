@@ -1,7 +1,7 @@
 var pullRequestTitleElement = document.getElementsByClassName('js-issue-title')[0];
 
 if (pullRequestTitleElement) {
-  var title = pullRequestTitleElement.innerHTML;
+  var title = pullRequestTitleElement.innerHTML.replace(/(<a[^>]+>|<\/a>)/g, '');
 
   // Gets an array of matched ids: [[#12345], [#34563], ...]
   var trackerIds = title.match(/\[#(.*?)\]\s*/g);

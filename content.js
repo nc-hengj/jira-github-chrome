@@ -4,12 +4,20 @@
     return;
   }
 
-  let title = $title.innerHTML.replace(/(<a[^>]+>|<\/a>)/g, '');
+  chrome.storage.local.get('inlineLinks', (options) => {
+    let title = $title.innerHTML.replace(/(<a[^>]+>|⬆︎|<\/a>)/g, '');
 
-  title.match(/\[#\d+\]/g).forEach((tag) => {
-    const url = `https://www.pivotaltracker.com/story/show/${tag.match(/\d+/)}`;
-    title = title.replace(tag, `<a href="${url}" target="_blank">${tag}</a>`);
+    title.match(/\[#\d+\]/g).forEach((tag) => {
+      const url = `https://www.pivotaltracker.com/story/show/${tag.match(/\d+/)}`;
+      const attrs = `href="${url}" target="_blank"`;
+
+      const replacement = options.inlineLinks === false ?
+        `${tag}<a ${attrs}>⬆︎</a>` :
+        `<a ${attrs}>${tag}</a>`;
+
+      title = title.replace(tag, replacement);
+    });
+
+    $title.innerHTML = title;
   });
-
-  $title.innerHTML = title;
 })();

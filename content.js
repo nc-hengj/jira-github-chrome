@@ -7,7 +7,7 @@
   chrome.storage.local.get('inlineLinks', (options) => {
     let title = $title.innerHTML.replace(/(<a[^>]+>|⬆︎|<\/a>)/g, '');
 
-    title.match(/\[#\d+\]/g).forEach((tag) => {
+    title.match(/#\d+(?=[\],\s\d#]*\])/g).forEach((tag) => {
       const url = `https://www.pivotaltracker.com/story/show/${tag.match(/\d+/)}`;
       const attrs = `href="${url}" target="_blank"`;
 

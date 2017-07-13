@@ -1,24 +1,23 @@
-var pullRequestTitleElement = document.getElementsByClassName('js-issue-title')[0];
+(() => {
+  const $title = document.querySelector('.js-issue-title');
+  if (!$title) {
+    return;
+  }
 
-if (pullRequestTitleElement) {
-  var title = pullRequestTitleElement.innerHTML;
+  chrome.storage.local.get('inlineLinks', (options) => {
+    let title = $title.innerHTML.replace(/(<a[^>]+>|⬆︎|<\/a>)/g, '');
 
-  // Gets an array of matched ids: [[#12345], [#34563], ...]
-  var trackerIds = title.match(/\[#(.*?)\]\s*/g);
-  var links = '';
-  var idsToBeReplaced = '';
+    title.match(/#\d+(?=[\],\s\d#]*\])/g).forEach((tag) => {
+      const url = `https://www.pivotaltracker.com/story/show/${tag.match(/\d+/)}`;
+      const attrs = `href="${url}" target="_blank"`;
 
-  trackerIds.forEach(function(id) {
-    // Concatenates the matched ids which will be replaced by links
-    idsToBeReplaced += id;
+      const replacement = options.inlineLinks === false ?
+        `${tag}<a ${attrs}>⬆︎</a>` :
+        `<a ${attrs}>${tag}</a>`;
 
-    var rawTrackerId = id.match(/\d+/g);
-    links += '<a href="https://www.pivotaltracker.com/n/projects/1227506/stories/' +
-    rawTrackerId +
-    '" target="_blank">[#' +
-    rawTrackerId +
-    ']</a>';
+      title = title.replace(tag, replacement);
+    });
+
+    $title.innerHTML = title;
   });
-
-  pullRequestTitleElement.innerHTML = title.replace(idsToBeReplaced, links);
-}
+})();

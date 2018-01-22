@@ -4,11 +4,15 @@
     return;
   }
 
-  chrome.storage.local.get('inlineLinks', (options) => {
+  chrome.storage.local.get(['jiraUrl', 'inlineLinks'], (options) => {
+    const jiraUrl = !!options.jiraUrl ?
+      options.jiraUrl :
+      'https://jira.nextcapital.com';
+
     let title = $title.innerHTML.replace(/(<a[^>]+>|⬆︎|<\/a>)/g, '');
 
     title.match(/[a-zA-Z0-9-]+(?=[\],\s\d#]*\])/g).forEach((tag) => {
-      const url = `https://nextcapital.atlassian.net/browse/${tag}`;
+      const url = `${jiraUrl}/browse/${tag}`;
       const attrs = `href="${url}" target="_blank"`;
 
       const replacement = options.inlineLinks === false ?

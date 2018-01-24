@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
 
   "name": "Jira Github Chrome Extension",
   "description": "This extension enhances interaction between Github and Jira on Chrome",

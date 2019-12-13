@@ -11,7 +11,7 @@
 
     let title = $title.innerHTML.replace(/(<a[^>]+>|⬆︎|<\/a>)/g, '');
 
-    title.match(/[a-zA-Z0-9-]+(?=[\],\s\d#]*\])/g).forEach((tag) => {
+    title = title.replace(/[a-zA-Z0-9-]+(?=[\],\s\d#]*\])/g, (tag) => {
       const url = `${jiraUrl}/browse/${tag}`;
       const attrs = `href="${url}" target="_blank"`;
 
@@ -19,7 +19,7 @@
         `${tag}<a ${attrs}>⬆︎</a>` :
         `<a ${attrs}>${tag}</a>`;
 
-      title = title.replace(tag, replacement);
+      return replacement;
     });
 
     $title.innerHTML = title;

@@ -1,10 +1,14 @@
-(() => {
+const updateIssueTitle = () => {
   const $title = document.querySelector('.js-issue-title');
   if (!$title) {
     return;
   }
 
   chrome.storage.local.get(['jiraUrl', 'inlineLinks'], (options) => {
+    if ($title.innerHTML.includes('href')) {
+      return;
+    }
+
     const jiraUrl = !!options.jiraUrl ?
       options.jiraUrl :
       'https://jira.nextcapital.com';
@@ -24,4 +28,8 @@
 
     $title.innerHTML = title;
   });
-})();
+};
+
+document.addEventListener('DOMNodeInserted', updateIssueTitle);
+
+updateIssueTitle();

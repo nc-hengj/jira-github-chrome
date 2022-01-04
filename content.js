@@ -30,6 +30,4 @@ const updateIssueTitle = () => {
   });
 };
 
-document.addEventListener('DOMNodeInserted', updateIssueTitle);
-
 updateIssueTitle();

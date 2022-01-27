@@ -1,14 +1,10 @@
-const updateIssueTitle = () => {
+(() => {
   const $title = document.querySelector('.js-issue-title');
   if (!$title) {
     return;
   }
 
   chrome.storage.local.get(['jiraUrl', 'inlineLinks'], (options) => {
-    if ($title.innerHTML.includes('href')) {
-      return;
-    }
-
     const jiraUrl = !!options.jiraUrl ?
       options.jiraUrl :
       'https://jira.nextcapital.com';
@@ -28,6 +24,4 @@ const updateIssueTitle = () => {
 
     $title.innerHTML = title;
   });
-};
-
-updateIssueTitle();
+})();

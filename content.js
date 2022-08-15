@@ -15,7 +15,7 @@
     chrome.storage.local.get(['jiraUrl', 'inlineLinks'], (options) => {
       const jiraUrl = !!options.jiraUrl ?
         options.jiraUrl :
-        'https://jira.nextcapital.com';
+        'https://jira.internal.nextcapital.com';
 
       let title = $title.innerHTML.replace(/(<a[^>]+>|⬆︎|<\/a>)/g, '');
 
